@@ -1,0 +1,47 @@
+.titulo{
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+header{
+    background-color: rgb(0, 128, 0);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+
+.logo{
+    height: 80px;
+}
+
+.nav{
+    justify-content: center;
+
+}
+
+.carrito{
+    height: 50px;
+}
+
+
+img{
+
+height: 300px;
+}
+
+footer{
+    background-color:rgb(0, 128, 0) ;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    position: sticky;
+    bottom: 0;
+    height: 200px;
+}
