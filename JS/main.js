@@ -1,5 +1,4 @@
-// Verifica si es la primera visita
-if (!localStorage.getItem("primeraVisita")) {
+
 
 /*solicitud de Nombre*/
 
@@ -40,5 +39,3 @@ while (true){
     
     }
     
-    localStorage.setItem("primeraVisita", "true");
-}
