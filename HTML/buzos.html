@@ -18,10 +18,10 @@
   <body>
     <!--header-->
     <header>
-      <img src="../imagenes/logo caciques.webp" alt="logo" class="logo" />
+      <img src="../imagenes/caciques_logo.jfif" alt="logo" class="logo" />
       <h1 class="titulo">CACIQUES</h1>
       <a href="../HTML/carrito.html">
-        <img src="../imagenes/carrito.png" alt="carito" class="carrito" />
+        <img src="../imagenes/carrito_blanco.webp" alt="carito" class="carrito" />
       </a>
     </header>
     <!--NAV-->
@@ -43,12 +43,13 @@
     <!--searchbar-->
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid d-flex justify-content-center">
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" id="buscador">
           <input
             class="form-control me-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
+            id="input"
           />
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -60,9 +61,10 @@
     <div class="container-fluid d-flex justify-content-center mt-5">
       <div class="row">
         <!--producto 4-->
-        <div class="col-6">
-          <div class="card" style="width: 18rem">
+        <div class="col-6 producto">
+          <div class="card" style="width: 18rem"><a href="producto_4.html">
             <img src="../imagenes/buzo.jpg" class="card-img-top" alt="..." />
+          </a>
             <div class="card-body">
               <h5 class="card-title">Buzo de Caciques</h5>
               <p class="card-text">costo:$35000</p>
@@ -87,6 +89,6 @@
       crossorigin="anonymous"
     ></script>
      <!--JS-->
-     <script src="JS/buscador.js"></script>
+     <script src="../JS/buscador.js"></script>
   </body>
 </html>
