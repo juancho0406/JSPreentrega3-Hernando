@@ -39,15 +39,4 @@ while (true){
     
     }
 
-    /*cartel indicando que se añadio el articulo al carro*/
-
-    const boton = document.getElementById("button")
-    
-    function carrito (){
-      const respuesta = alert ("!el articulo ha sido añadido al carrito! :D")
-    }
-
-
-    // Asignar un evento de click al botón
-boton.addEventListener('click', carrito);
 

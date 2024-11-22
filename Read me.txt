@@ -1,0 +1,17 @@
+!Hola!
+Estas son unas notas explicando el proyecto:
+-Cuando ingresas al inicio te pide los datos y el presupuesto para saber si contas con dinero necesario
+-Podes buscar en la barra de busqueda en cualquiera de las pestañas
+-Cuando seleccionas el carrito de compras te permite agregar productos que estan en la pagina, eliminar productos, calcular el total y salir
+
+Cosas pensadas a futuro:
+-En vez del prompt y alert crear eventos para que se agreguen los productos al carro y elimar las alertas y prompts
+-cambiar la estetica de la pagina ya que es muy simple
+-agregar mas productos a la pagina
+-agregar alguna calculadora al costado de la pagina para que se visualice cuanto se gasta sin necesidad de entrar al carrito
+
+
+Comentame que te parece y cualquier comentario o critica es bienvenida
+
+
+!Muchas gracias!:D 
