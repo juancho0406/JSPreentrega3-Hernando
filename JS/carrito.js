@@ -1,207 +1,130 @@
+// Lista del carrito
+let carrito = [];
 
-/*funcion para validar la opcion del menu*/
+// Productos disponibles
+class claseProductos {
+  constructor(nombre, precio) {
+    this.nombre = nombre;
+    this.precio = precio;
+  }
+}
 
-function validar(menu){
+const producto1 = new claseProductos("Remeras caciques 1", 15000);
+const producto2 = new claseProductos("Remeras caciques 2", 20000);
+const producto3 = new claseProductos("Buzo caciques", 25000);
+const producto4 = new claseProductos("Campera caciques", 35000);
 
-    while(menu < 1 || menu > 4){
+const productosDisponibles = [producto1, producto2, producto3, producto4];
 
-        alert("Opcion invalida,favor de ingresar una opcion del 1 al 4")
-
-
-        menu = parseInt(prompt(opciones))
-
-       }
-
-     if(menu === 4){
-        alert ("Gracias por visitarnos!");
-        return false
-      }
-     
-      return true
-     
+// Función para agregar productos al carrito
+document.addEventListener("DOMContentLoaded", () => {
+  // Cargar carrito desde localStorage (si existe)
+  cargarCarritoDesdeStorage();
+  
+  // Mostrar el carrito
+  actualizarCarrito();
+  
+  // Agregar los productos disponibles al HTML y configurar el evento de click para agregar productos
+  productosDisponibles.forEach((producto, index) => {
+    const botonAgregar = document.getElementById(`agregar${index}`);
+    if (botonAgregar) {
+      botonAgregar.addEventListener("click", () => agregarProducto(index, true));
     }
+  });
+});
 
-
-     /*objetos*/
-
-
- class claseProductos{
-    constructor(nombre,precio){
-        this.nombre = nombre;
-        this.precio = precio
-    }
- }
-
- 
- const producto1 = new claseProductos(
-
-    "Remeras caciques 1",
-    15000
-
- )
- 
-
- const producto2 =  new claseProductos(
+// Función para agregar producto al carrito
+function agregarProducto(productoId, manual = true) {
+  const producto = productosDisponibles[productoId];
+  if (producto) {
+    // Comprobar si el producto ya está en el carrito
+    const productoExistente = carrito.find(p => p.nombre === producto.nombre);
     
-    "Remeras caciques 2",
-    20000
- )
- 
-
- const producto3 =  new claseProductos(
-    
-    "buzo caciques",
-    25000
- )
- 
-
- const producto4 = new claseProductos(
-    
-    "campera caciques",
-    35000
- )
- 
-
-
-/*funcion para agregar productos*/
-function agregarProducto() {
-    alert("Ingresa del 1 al 4 qué producto deseas agregar");
-    const listaProductos = parseInt(
-        prompt("1- Remera Caciques 1\n2- Remera Caciques 2\n3- Buzo Caciques\n4- Campera Caciques")
-    );
-
-    while(listaProductos <1  || listaProductos > 4){
-
-        alert("Opcion invalida,favor de ingresar una opcion del 1 al 4")
-
-        agregarProducto()
+    if (productoExistente) {
+      // Si el producto ya existe, aumentar su cantidad
+      productoExistente.cantidad++;
+    } else {
+      // Si el producto no existe, agregarlo al carrito con cantidad 1
+      carrito.push({...producto, cantidad: 1});
     }
-
-    switch(listaProductos){
-        case 1: 
-         alert("Se agrego el siguiente producto: Remeras caciques 1");
-         
-         productos.push(producto1)
-
-         console.log(productos)
-
-
-         break
-
-         case 2: 
-         alert("Se agrego el siguiente producto: Remeras caciques 2" );
-         productos.push(producto2)
-         console.log(productos)
-         break
-         case 3: 
-         alert("Se agrego el siguiente producto: buzo caciques" );
-         productos.push(producto3)
-         console.log(productos)
-         break
-         case 4: 
-         alert("Se agrego el siguiente producto: campera caciques");
-         productos.push(producto4)
-         console.log(productos)
-         break
-
+  
+    // Solo muestra la alerta si se agrega manualmente
+    if (manual) {
+      alert(`Se agregó el producto: ${producto.nombre} al carrito`);
     }
-   
+  
+    actualizarCarrito();
+    guardarCarritoEnStorage();
+  } else {
+    alert("Producto no encontrado");
+  }
 }
 
-
-/*funcion para calcular el total*/
-
-function totalProductos(){
-
-    let total = 0;
-
-    for(let i=0; i < productos.length; i++){
-
-        total = total + ( productos[i].precio)
-    }
-
-    alert ("El total es de $:" + total)
-}
-/*funcion para buscar el indice de productos*/
-
-function buscarIndiceDeProducto(nombreDeProducto){
-
-    let indice  = -1
-    
-    for (let i = 0; i < productos.length; i++){
-
-        if(productos[i].nombre.toLowerCase()===nombreDeProducto.toLowerCase()){
-
-            indice = i
-
-            break
-        }
-    }
-     
-    return indice
-
+// Función para eliminar producto del carrito
+function eliminarProducto(nombreProducto) {
+  carrito = carrito.filter((producto) => producto.nombre !== nombreProducto);
+  actualizarCarrito();
+  guardarCarritoEnStorage();
 }
 
-/* funcion para eliminar el producto*/
-function eliminarProducto(){
+// Función para actualizar el carrito
+function actualizarCarrito() {
+  const contenedorCarrito = document.querySelector(".cuadro"); 
+  if (!contenedorCarrito) {
+    console.error("El contenedor del carrito no existe en el DOM.");
+    return;
+  }
 
-    // solicito el nombre a eliminar
-      let nombreProducto = prompt("Ingrese el nombre del producto a eliminar");
-    // para buscar el indice del producto
+  contenedorCarrito.innerHTML = ""; // Limpiar contenido existente
 
-      let indiceProducto = buscarIndiceDeProducto ( nombreProducto) ;
+  // Encabezados del carrito
+  contenedorCarrito.innerHTML += `
+    <div class="row">
+      <div class="col-3"><strong>Cantidad</strong></div>
+      <div class="col-3"><strong>Nombre</strong></div>
+      <div class="col-3"><strong>Precio</strong></div>
+      <div class="col-3"><strong>Acción</strong></div>
+    </div>
+  `;
 
-      while(indiceProducto === -1){
-        alert("El producto no existe") 
+  // Agregar los productos del carrito
+  carrito.forEach((producto) => {
+    contenedorCarrito.innerHTML += `
+      <div class="row">
+        <div class="col-3">${producto.cantidad}</div>
+        <div class="col-3">${producto.nombre}</div>
+        <div class="col-3">$${producto.precio * producto.cantidad}</div>
+        <div class="col-3">
+          <button onclick="eliminarProducto('${producto.nombre}')">Eliminar</button>
+        </div>
+      </div>
+    `;
+  });
 
-        
-       nombreProducto = prompt("Ingrese el nombre del producto a eliminar");
-      
-       indiceProducto = buscarIndiceDeProducto ( nombreProducto)
-      }
-      
+  // Calcular el total correctamente (cantidad * precio de cada producto)
+  const total = carrito.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
 
-        //elimino el producto
-      productos.splice(indiceProducto, 1);
-      alert("Se elimino el produco exitosamente!" )
- 
-      
-      console.log(productos)
-
-
+  // Mostrar el total debajo de los productos
+  const totalDiv = document.createElement("div");
+  totalDiv.classList.add("total");
+  totalDiv.innerHTML = `
+    <div class="row">
+      <div class="col-9"><strong>TOTAL</strong></div>
+      <div class="col-3"><strong>$${total}</strong></div>
+    </div>
+  `;
+  contenedorCarrito.appendChild(totalDiv);
 }
 
-/*inicio del programa*/
-
-const opciones = " En base a los articulos vistos en la pagina elegir entre las siguientes opciones : 1- agregar producto, 2-eliminar producto, 3-sumar todos los productos, 4-Salir "
-
-let menu = parseInt(prompt(opciones));
-
-let productos = []
-
-while(validar(menu)){
-
-   switch(menu){
-
-    case 1:
-
-        //agregar producto;
-        agregarProducto();
-        
-        break;
-
-    case 2: 
-      //eliminar producto;
-      eliminarProducto()
-      break
-
-    case 3:
-        //calcular el total;
-        totalProductos()
-        break
-   }
-
-     menu = parseInt(prompt(opciones))
+// Función para guardar el carrito en localStorage
+function guardarCarritoEnStorage() {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-
+// Función para cargar el carrito desde localStorage
+function cargarCarritoDesdeStorage() {
+  const carritoStorage = localStorage.getItem('carrito');
+  if (carritoStorage) {
+    carrito = JSON.parse(carritoStorage);
+  }
+}

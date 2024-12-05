@@ -1,7 +1,7 @@
 
 
 /*solicitud de Nombre*/
-
+/*
 let nombre;
 
 while (true) {
@@ -17,6 +17,7 @@ while (true) {
 
 /* pregunta el presupuesto y segun el valor ingresado le dice cuantos articulos puede compra*/
 
+/*
 let presupuesto;
 
 while (true){
@@ -38,5 +39,3 @@ while (true){
         
     
     }
-
-
