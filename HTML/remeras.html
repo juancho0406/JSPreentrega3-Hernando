@@ -16,14 +16,26 @@
     />
   </head>
   <body>
-    <!--header-->
-    <header>
-      <img src="../imagenes/caciques_logo.jfif" alt="logo" class="logo" />
-      <h1 class="titulo">CACIQUES</h1>
-      <a href="../HTML/carrito.html">
-        <img src="../imagenes/carrito_blanco.webp" alt="carrito" class="carrito" />
-      </a>
-    </header>
+           <!--header-->
+           <header>
+            <div class="container-fluid  ">
+              <div class="row d-flex align-items-start justify-content-between">
+                <div class="col-4 ">
+                  <img src="../imagenes/caciques_logo.jfif" alt="logo" class="logo" />
+                </div>
+                <div class="col-4 text-center mt-5">
+                  <h1 class="titulo">CACIQUES</h1>
+                </div>
+                <div class="col-4 d-flex justify-content-end mt-4">
+                  <a href="../HTML/carrito.html">
+                    <img src="../imagenes/carrito_blanco.webp" alt="carito" class="carrito" />
+                  </a>
+                  <button id="loginBtn" class="btn btn-primary btn-md">Login</button>
+                </div>
+              </div>
+            </div>
+          
+          </header>
     <!--NAV-->
 
     <ul class="nav nav-tabs text-center">
@@ -105,5 +117,6 @@
  <!--JS-->
  <script src="../JS/buscador.js"></script>
  <script src="../JS/carrito.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

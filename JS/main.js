@@ -4,16 +4,6 @@ const loginModal = document.getElementById("loginModal");
 const loginForm = document.getElementById("loginForm");
 const closeModal = document.getElementById("closeModal");
 
-// Comprobar si ya hay un usuario guardado en localStorage al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-  const nombreGuardado = localStorage.getItem("nombre");
-  const apellidoGuardado = localStorage.getItem("apellido");
-
-  if (nombreGuardado && apellidoGuardado) {
-    mostrarSaludo(nombreGuardado, apellidoGuardado);
-    loginBtn.style.display = "none"; // Ocultar el botón de login
-  }
-});
 
 // Mostrar el modal cuando se haga clic en el botón de Login
 loginBtn.addEventListener("click", () => {
@@ -26,31 +16,43 @@ closeModal.addEventListener("click", () => {
 });
 
 // Manejar el formulario de Login
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Evitar el envío del formulario
-  const nombre = document.getElementById("nombre").value.trim();
-  const apellido = document.getElementById("apellido").value.trim();
 
-  if (nombre && apellido) {
-    // Guardar los datos en localStorage
-    localStorage.setItem("nombre", nombre);
-    localStorage.setItem("apellido", apellido);
+  const usuario = document.getElementById("usuario").value.trim();
+  const contraseña = document.getElementById("contraseña").value.trim();
 
-    // Mostrar saludo y ocultar el modal
-    mostrarSaludo(nombre, apellido);
-    loginModal.style.display = "none"; // Cerrar el modal
+  if (usuario && contraseña) {
+    try {
+      // Enviar los datos al backend
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, contraseña })
+      });
 
-    // Ocultar el botón de Login
-    loginBtn.style.display = "none";
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.mensaje);
+        loginModal.style.display = "none"; // Cerrar el modal
+        loginBtn.style.display = "none"; // Ocultar el botón de login
+      } else {
+        alert(result.mensaje); // Mostrar mensaje de error
+      }
+    } catch (error) {
+      alert('Error al intentar iniciar sesión');
+    }
   } else {
     alert("Por favor, completa todos los campos.");
   }
 });
 
+
 // Función para mostrar el saludo
 function mostrarSaludo(nombre, apellido) {
   const saludoContainer = document.createElement("div");
   saludoContainer.className = "text-center mt-3";
-  saludoContainer.innerHTML = `<h4>Hola, ${nombre} ${apellido}!</h4>`;
+  saludoContainer.innerHTML = `<h4>Hola, ${usuario}!</h4>`;
   document.body.prepend(saludoContainer);
 }

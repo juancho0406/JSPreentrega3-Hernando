@@ -9,10 +9,7 @@
 header{
     background-color: rgb(0, 0, 0);
     height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
+   
 
 }
 

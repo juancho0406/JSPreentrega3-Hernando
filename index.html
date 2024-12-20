@@ -17,19 +17,34 @@
   </head>
   <body>
     <!--header-->
+    <!--header-->
     <header>
-      <img src="imagenes/caciques_logo.jfif" alt="logo" class="logo" />
-      
-      <h1 class="titulo">CACIQUES</h1>
-      <a href="HTML/carrito.html">
-        <img src="imagenes/carrito_blanco.webp" alt="carito" class="carrito" />
-      </a>
-
+      <div class="container-fluid  ">
+        <div class="row d-flex align-items-start justify-content-between">
+          <div class="col-4 ">
+            <img src="imagenes/caciques_logo.jfif" alt="logo" class="logo" />
+          </div>
+          <div class="col-4 text-center mt-5">
+            <h1 class="titulo">CACIQUES</h1>
+          </div>
+          <div class="col-4 d-flex justify-content-end mt-4">
+            <a href="HTML/carrito.html">
+              <img src="imagenes/carrito_blanco.webp" alt="carito" class="carrito" />
+            </a>
+            <button id="loginBtn" class="btn btn-primary btn-md">Login</button>
+          </div>
+        </div>
+      </div>
+    
     </header>
-<!-- Botón de Login -->
-<div class="container mt-5 text-center">
-  <button id="loginBtn" class="btn btn-primary btn-lg">Login</button>
+      
+      
+  
+    </div>
+  </div>
 </div>
+    </header>
+
 
 <!-- Modal de Login -->
 <div id="loginModal" class="modal" style="display: none;">
@@ -42,12 +57,12 @@
       <div class="modal-body">
         <form id="loginForm">
           <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" id="nombre" class="form-control" required />
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" id="usuario" class="form-control" required />
           </div>
           <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" id="apellido" class="form-control" required />
+            <label for="contraseña" class="form-label">Contraseña</label>
+            <input type="password" id="contraseña" class="form-control" required />
           </div>
           <button type="submit" class="btn btn-primary">Iniciar sesión</button>
         </form>
@@ -55,6 +70,7 @@
     </div>
   </div>
 </div>
+<!--NAVBAR-->
     <ul class="nav nav-tabs text-center">
       <li class="nav-item">
         <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
@@ -85,63 +101,66 @@
       </div>
     </nav>
     <!--productos-->
-
-    <!--producto 1-->
-    <div class="container-fluid d-flex justify-content-center mt-5">
-      <div class="row">
-        <div class="col-6 producto">
-          <div class="card" style="width: 18rem">
-            <a href="HTML/producto_1.html"
-              ><img src="imagenes/Remera 1.jpg" class="card-img-top" alt="..."
-            /></a>
-            <div class="card-body">
-              <h5 class="card-title">Remera estampado de caciques 1</h5>
-              <p class="card-text ">costo: $15000</p>
-              <a href="#" class="btn btn-primary botonAgregar" id="agregar0">Agregar al carrito</a>
-            </div>
-          </div>
-        </div>
-        <!--producto 2-->
-        <div class="col-6 producto">
-          <div class="card" style="width: 18rem">
-            <a href="HTML/producto_2.html"
-              ><img src="imagenes/remera 2.jpeg" class="card-img-top" alt="..."
-            /></a>
-            <div class="card-body">
-              <h5 class="card-title">Remera estampado de caciques 2</h5>
-              <p class="card-text">costo: $20000</p>
-              <a href="#" class="btn btn-primary botonAgregar" id="agregar1">Agregar al carrito</a>
-            </div>
-          </div>
-        </div>
-        <!--producto 3-->
-        <div class="col-6 producto mt-5">
-          <div class="card" style="width: 18rem">
-            <a href="HTML/producto_3.html"
-              ><img src="imagenes/campera.webp" class="card-img-top" alt="..."
-            /></a>
-            <div class="card-body">
-              <h5 class="card-title">Campera de Caciques</h5>
-              <p class="card-text">costo: $25000</p>
-              <a href="#" class="btn btn-primary botonAgregar" id="agregar2">Agregar al carrito</a>
-            </div>
-          </div>
-        </div>
-        <!--producto 4-->
-        <div class="col-6 producto mt-5">
-          <div class="card" style="width: 18rem">
-            <a href="HTML/producto_4.html"
-              ><img src="imagenes/buzo.jpg" class="card-img-top" alt="..."
-            /></a>
-            <div class="card-body">
-              <h5 class="card-title">Buzo de Caciques</h5>
-              <p class="card-text">costo:$35000</p>
-              <a href="#" class="btn btn-primary botonAgregar" id="agregar3">Agregar al carrito</a>
-            </div>
-          </div>
+<!-- Contenedor principal -->
+<div class="container text-center mt-5">
+  <div class="row justify-content-center">
+    <!-- Producto 1 -->
+    <div class="col-md-6 col-lg-3 producto mb-4">
+      <div class="card" style="width: 18rem">
+        <a href="HTML/producto_1.html">
+          <img src="imagenes/Remera 1.jpg" class="card-img-top" alt="..." />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Remera estampado de caciques 1</h5>
+          <p class="card-text">costo: $15000</p>
+          <a href="#" class="btn btn-primary botonAgregar" id="agregar0">Agregar al carrito</a>
         </div>
       </div>
     </div>
+    <!-- Producto 2 -->
+    <div class="col-md-6 col-lg-3 producto mb-4">
+      <div class="card" style="width: 18rem">
+        <a href="HTML/producto_2.html">
+          <img src="imagenes/remera 2.jpeg" class="card-img-top" alt="..." />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Remera estampado de caciques 2</h5>
+          <p class="card-text">costo: $20000</p>
+          <a href="#" class="btn btn-primary botonAgregar" id="agregar1">Agregar al carrito</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <!-- Producto 3 -->
+    <div class="col-md-6 col-lg-3 producto mb-4">
+      <div class="card" style="width: 18rem">
+        <a href="HTML/producto_3.html">
+          <img src="imagenes/campera.webp" class="card-img-top" alt="..." />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Campera de Caciques</h5>
+          <p class="card-text">costo: $25000</p>
+          <a href="#" class="btn btn-primary botonAgregar" id="agregar2">Agregar al carrito</a>
+        </div>
+      </div>
+    </div>
+    <!-- Producto 4 -->
+    <div class="col-md-6 col-lg-3 producto mb-4">
+      <div class="card" style="width: 18rem">
+        <a href="HTML/producto_4.html">
+          <img src="imagenes/buzo.jpg" class="card-img-top" alt="..." />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Buzo de Caciques</h5>
+          <p class="card-text">costo: $35000</p>
+          <a href="#" class="btn btn-primary botonAgregar" id="agregar3">Agregar al carrito</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!--Footer-->
     <footer>
@@ -161,5 +180,7 @@
     <script src="JS/buscador.js"></script>
     <script src="JS/main.js"></script>
     <script src="JS/carrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="JS/usuarios.js"></script>
   </body>
 </html>

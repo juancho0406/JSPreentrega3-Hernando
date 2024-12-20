@@ -49,9 +49,12 @@ function agregarProducto(productoId, manual = true) {
     }
   
     // Solo muestra la alerta si se agrega manualmente
-    if (manual) {
-      alert(`Se agregó el producto: ${producto.nombre} al carrito`);
-    }
+    if (manual) Swal.fire({
+      title: 'Producto Agregado',
+      text: 'Se agrego el producto al carrito',
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    })
   
     actualizarCarrito();
     guardarCarritoEnStorage();
@@ -83,7 +86,7 @@ function actualizarCarrito() {
       <div class="col-3"><strong>Cantidad</strong></div>
       <div class="col-3"><strong>Nombre</strong></div>
       <div class="col-3"><strong>Precio</strong></div>
-      <div class="col-3"><strong>Acción</strong></div>
+      
     </div>
   `;
 
@@ -91,15 +94,22 @@ function actualizarCarrito() {
   carrito.forEach((producto) => {
     contenedorCarrito.innerHTML += `
       <div class="row">
-        <div class="col-3">${producto.cantidad}</div>
+      
+       <div class="col-3 d-flex align-items-center justify-content-center">
+          <button class="btn btn-outline-success btn-sm" onclick="actualizarCantidad('${producto.nombre}', -1)"> - </button>
+          ${producto.cantidad}
+          <button class="btn btn-outline-success btn-sm" onclick="actualizarCantidad('${producto.nombre}', 1)"> + </button>
+        </div>
         <div class="col-3">${producto.nombre}</div>
         <div class="col-3">$${producto.precio * producto.cantidad}</div>
         <div class="col-3">
-          <button onclick="eliminarProducto('${producto.nombre}')">Eliminar</button>
+          <button class="btn btn-outline-success" onclick="eliminarProducto ('${producto.nombre}')">Eliminar</button>
         </div>
       </div>
     `;
   });
+
+
 
   // Calcular el total correctamente (cantidad * precio de cada producto)
   const total = carrito.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
@@ -128,3 +138,61 @@ function cargarCarritoDesdeStorage() {
     carrito = JSON.parse(carritoStorage);
   }
 }
+
+// alerta boton pagar
+
+const pagar = document.querySelector("#pagar");
+const datos = document.querySelector (".form-control")
+
+if (pagar) {
+  pagar.addEventListener("click", () => {
+      // Primero verificar si los datos están vacíos
+      if (!datos || datos.value.trim() === "") {
+          Swal.fire({
+              title: 'Datos faltantes',
+              text: 'Faltan datos en el medio de pago.',
+              icon: 'warning',
+              confirmButtonText: 'Aceptar'
+          });
+      } 
+      // Luego verificar si el carrito está vacío
+      else if (carrito.length === 0) {
+          Swal.fire({
+              title: 'Carrito vacío',
+              text: 'No tienes productos en el carrito.',
+              icon: 'warning',
+              confirmButtonText: 'Aceptar'
+          });
+      } 
+      // Si no hay datos faltantes ni carrito vacío, procesamos el pago
+      else {
+          Swal.fire({
+              title: 'Pago exitoso',
+              text: 'SE REGISTRÓ SU PAGO CON ÉXITO',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+          });
+      }
+  });
+} else {
+  console.error("El botón con ID 'pagar' no existe en el DOM.");
+}
+
+
+  // Función para actualizar la cantidad de un producto en el carrito
+  function actualizarCantidad(nombreProducto, cantidad) {
+    const producto = carrito.find(p => p.nombre === nombreProducto);
+  
+    if (producto) {
+      producto.cantidad += cantidad;
+  
+      // Si la cantidad es 0 o negativa, eliminar el producto del carrito
+      if (producto.cantidad <= 0) {
+        carrito = carrito.filter(p => p.nombre !== nombreProducto);
+      }
+  
+      // Actualizar el carrito y guardarlo
+      actualizarCarrito();
+      guardarCarritoEnStorage();
+    }
+  }
