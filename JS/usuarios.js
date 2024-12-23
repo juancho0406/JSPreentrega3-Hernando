@@ -1,38 +1,54 @@
-const express = require('express');
-const fs = require('fs');
-const app = express();
+// Selección de elementos
+const loginBtn = document.getElementById("loginBtn");
+const loginModal = document.getElementById("loginModal");
+const loginForm = document.getElementById("loginForm");
+const closeModal = document.getElementById("closeModal");
 
-// Middleware para parsear JSON
-app.use(express.json());
 
-// Ruta para manejar el inicio de sesión
-app.post('/api/login', (req, res) => {
-  const { usuario, contraseña } = req.body;
-
-  // Leer el archivo usuarios.json
-  fs.readFile('usuarios.json', 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).send('Error al leer el archivo de usuarios');
-    }
-
-    // Parsear los datos JSON
-    const usuarios = JSON.parse(data);
-
-    // Verificar si el usuario y la contraseña coinciden
-    const usuarioValido = usuarios.find(u => u.usuario === usuario && u.contraseña === contraseña);
-
-    if (usuarioValido) {
-      // Si el usuario es válido, permitir el acceso
-      return res.status(200).json({ mensaje: 'Acceso permitido' });
-    } else {
-      // Si no coinciden, negar el acceso
-      return res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos' });
-    }
-  });
+// Mostrar el modal cuando se haga clic en el botón de Login
+loginBtn.addEventListener("click", () => {
+  loginModal.style.display = "block"; // Mostrar el modal
 });
 
-// Iniciar el servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Cerrar el modal cuando se haga clic en el botón de cerrar
+closeModal.addEventListener("click", () => {
+  loginModal.style.display = "none"; // Ocultar el modal
+});
+
+// Manejar el formulario de Login
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Evitar el envío del formulario
+
+  const usuario = document.getElementById("usuario").value.trim();
+  const contraseña = document.getElementById("contraseña").value.trim();
+
+  if (usuario && contraseña) {
+    try {
+      // Enviar los datos al backend
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          usuario: usuario,
+          contraseña: contraseña
+        })
+      });
+      
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.mensaje);
+        loginModal.style.display = "none"; // Cerrar el modal
+        loginBtn.style.display = "none"; // Ocultar el botón de login
+      } else {
+        alert(result.mensaje); // Mostrar mensaje de error
+      }
+    } catch (error) {
+      alert('Error al intentar iniciar sesión');
+    }
+  } else {
+    alert("Por favor, completa todos los campos.");
+  }
 });
